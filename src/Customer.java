@@ -1,10 +1,10 @@
 import java.util.List;
 
 public class Customer implements ICustomer {
-    public int id;
-    public String name;
-    public String phone;
-    public String email;
+    private int id;
+    private String name;
+    private String phone;
+    private String email;
 
     public Customer(String name, String phone, String email) {
         this.name = name;
