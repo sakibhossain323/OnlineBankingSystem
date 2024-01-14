@@ -1,4 +1,4 @@
-public class Account {
+public abstract class Account {
     public int accountNo;
     public ICustomer accountHolder;
     public double balance;
