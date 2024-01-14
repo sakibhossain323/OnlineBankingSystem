@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class Customer {
+public class Customer implements ICustomer {
     public int id;
     public String name;
     public String phone;
@@ -61,5 +61,15 @@ public class Customer {
 
     public void setAccounts(List<IAccount> accounts) {
         this.accounts = accounts;
+    }
+
+    @Override
+    public void addAccount(IAccount account) {
+        accounts.add(account);
+    }
+
+    @Override
+    public void removeAccount(IAccount account) {
+        accounts.remove(account);
     }
 }
