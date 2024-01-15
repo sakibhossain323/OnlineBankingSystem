@@ -6,8 +6,9 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public void createAccount(ICustomer accountHolder, double balance, boolean disabled) {
-        IAccount account = new SavingAccount(accountHolder, balance, disabled);
+    public void createAccount(AccountType type,ICustomer accountHolder, double balance, boolean disabled) {
+        AccountFactory factory = new AccountFactory();
+        IAccount account = factory.getAccount(type, accountHolder, balance, disabled);
         accountRepository.createAccount(account);
     }
 
