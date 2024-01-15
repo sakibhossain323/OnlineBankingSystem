@@ -4,11 +4,15 @@ public abstract class Account {
     public double balance;
     public boolean disabled;
 
-    public Account(int accountNo, ICustomer accountHolder, double balance, boolean disabled) {
-        this.accountNo = accountNo;
+    public Account(ICustomer accountHolder, double balance, boolean disabled) {
         this.accountHolder = accountHolder;
         this.balance = balance;
         this.disabled = disabled;
+    }
+
+    public Account(int accountNo, ICustomer accountHolder, double balance, boolean disabled) {
+        this(accountHolder, balance, disabled);
+        this.accountNo = accountNo;
     }
 
     public int getAccountNo() {

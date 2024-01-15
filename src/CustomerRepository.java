@@ -14,16 +14,16 @@ public class CustomerRepository implements ICustomerRepository{
         this.customers = customers;
     }
 
+    public void createCustomer(Customer customer){
+        OptionalInt id = customers.stream().mapToInt(Customer::getId).max();
+        customer.setId(id.orElse(0)+1);
+        this.customers.add(customer);
+    }
+
     public Customer getCustomer(int id)
     {
         Optional<Customer> result = customers.stream().
                 filter((c)-> c.getId() == id).findFirst();
         return result.orElse(null);
-    }
-
-    public void addCustomer(Customer customer){
-        OptionalInt id = customers.stream().mapToInt(Customer::getId).max();
-        customer.setId(id.orElse(0)+1);
-        customers.add(customer);
     }
 }

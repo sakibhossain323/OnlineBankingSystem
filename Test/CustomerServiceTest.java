@@ -7,8 +7,8 @@ class CustomerServiceTest {
     public void addCustomerTest()
     {
         ICustomerService service = new CustomerService(new CustomerRepository());
-        service.addCustomer("Alice", "096", "a@b.c");
-        service.addCustomer("Bob", "097", "b@c.d");
+        service.createCustomer("Alice", "096", "a@b.c");
+        service.createCustomer("Bob", "097", "b@c.d");
         Customer customer = service.getCustomer(2);
         assertEquals("Bob", customer.getName());
     }

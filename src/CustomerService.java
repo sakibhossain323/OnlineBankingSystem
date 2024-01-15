@@ -1,14 +1,14 @@
 public class CustomerService implements ICustomerService {
-    ICustomerRepository customerRepository = null;
+    ICustomerRepository customerRepository;
 
     public CustomerService(ICustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
     @Override
-    public void addCustomer(String name, String phone, String email) {
+    public void createCustomer(String name, String phone, String email) {
         Customer customer = new Customer(name, phone, email);
-        customerRepository.addCustomer(customer);
+        customerRepository.createCustomer(customer);
     }
 
     @Override
