@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class AccountService implements IAccountService {
     IAccountRepository accountRepository = null;
 
@@ -15,5 +17,10 @@ public class AccountService implements IAccountService {
     @Override
     public IAccount getAccount(int accountNo) {
         return accountRepository.getAccount(accountNo);
+    }
+
+    @Override
+    public List<IAccount> getAccounts(ICustomer customer) {
+        return accountRepository.getAccounts(customer);
     }
 }

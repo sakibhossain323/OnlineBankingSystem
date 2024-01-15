@@ -14,12 +14,14 @@ public class CustomerRepository implements ICustomerRepository{
         this.customers = customers;
     }
 
+    @Override
     public void createCustomer(Customer customer){
         OptionalInt id = customers.stream().mapToInt(Customer::getId).max();
         customer.setId(id.orElse(0)+1);
         this.customers.add(customer);
     }
 
+    @Override
     public Customer getCustomer(int id)
     {
         Optional<Customer> result = customers.stream().
