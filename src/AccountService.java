@@ -1,7 +1,7 @@
 import java.util.List;
 
 public class AccountService implements IAccountService {
-    IAccountRepository accountRepository = null;
+    IAccountRepository accountRepository;
 
     public AccountService(IAccountRepository accountRepository) {
         this.accountRepository = accountRepository;
