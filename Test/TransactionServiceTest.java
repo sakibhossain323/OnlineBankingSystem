@@ -17,7 +17,9 @@ class TransactionServiceTest {
         IAccount ac2 = service.getAccount(2);
         ITransactionService trx = new TransactionService();
         trx.transfer(ac1, ac2, 100);
+        List<IAccount> alice = service.getAccounts(c1);
         List<IAccount> bob = service.getAccounts(c2);
         assertEquals(600, bob.get(0).getBalance());
+        assertEquals(900, alice.get(0).getBalance());
     }
 }
