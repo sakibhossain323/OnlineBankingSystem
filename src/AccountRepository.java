@@ -31,7 +31,7 @@ public class AccountRepository implements IAccountRepository {
         return  result.orElse(null);
     }
     @Override
-    public List<IAccount> getAccounts(ICustomer customer) {
+    public List<IAccount> getAccounts(Customer customer) {
         return accounts.stream()
                 .filter((a)->a.getAccountHolder() == customer)
                 .collect(Collectors.toList());

@@ -8,8 +8,8 @@ class TransactionServiceTest {
     @Test
     void transferTest()
     {
-        ICustomer c1 = new Customer(1, "Alice", "0967", "a@b.c");
-        ICustomer c2 = new Customer(2, "Bob", "0968", "b@b.c");
+        Customer c1 = new Customer(1, "Alice", "0967", "a@b.c");
+        Customer c2 = new Customer(2, "Bob", "0968", "b@b.c");
         IAccountService service = new AccountService(new AccountRepository());
         service.createAccount(AccountType.SavingAccount, c1, 1000, false);
         service.createAccount(AccountType.SavingAccount, c2, 500, false);

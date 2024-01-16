@@ -1,8 +1,8 @@
 import java.util.List;
 
 public interface IAccountService {
-    void createAccount(AccountType type,ICustomer accountHolder, double balance, boolean disabled);
+    void createAccount(AccountType type, Customer accountHolder, double balance, boolean disabled);
     IAccount getAccount(int accountNo);
-    List<IAccount> getAccounts(ICustomer customer);
+    List<IAccount> getAccounts(Customer customer);
 }
 

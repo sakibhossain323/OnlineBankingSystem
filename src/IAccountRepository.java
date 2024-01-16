@@ -5,6 +5,6 @@ public interface IAccountRepository {
 
     IAccount getAccount(int accountNo);
 
-    List<IAccount> getAccounts(ICustomer customer);
+    List<IAccount> getAccounts(Customer customer);
 }
 

@@ -1,6 +1,4 @@
-import java.util.List;
-
-public class Customer implements ICustomer {
+public class Customer {
     private int id;
     private String name;
     private String phone;

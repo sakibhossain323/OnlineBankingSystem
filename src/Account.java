@@ -1,16 +1,16 @@
 public abstract class Account {
     public int accountNo;
-    public ICustomer accountHolder;
+    public Customer accountHolder;
     public double balance;
     public boolean disabled;
 
-    public Account(ICustomer accountHolder, double balance, boolean disabled) {
+    public Account(Customer accountHolder, double balance, boolean disabled) {
         this.accountHolder = accountHolder;
         this.balance = balance;
         this.disabled = disabled;
     }
 
-    public Account(int accountNo, ICustomer accountHolder, double balance, boolean disabled) {
+    public Account(int accountNo, Customer accountHolder, double balance, boolean disabled) {
         this(accountHolder, balance, disabled);
         this.accountNo = accountNo;
     }
@@ -23,11 +23,11 @@ public abstract class Account {
         this.accountNo = accountNo;
     }
 
-    public ICustomer getAccountHolder() {
+    public Customer getAccountHolder() {
         return accountHolder;
     }
 
-    public void setAccountHolder(ICustomer accountHolder) {
+    public void setAccountHolder(Customer accountHolder) {
         this.accountHolder = accountHolder;
     }
 

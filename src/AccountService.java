@@ -8,7 +8,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public void createAccount(AccountType type,ICustomer accountHolder, double balance, boolean disabled) {
+    public void createAccount(AccountType type, Customer accountHolder, double balance, boolean disabled) {
         AccountFactory factory = new AccountFactory();
         IAccount account = factory.getAccount(type, accountHolder, balance, disabled);
         accountRepository.createAccount(account);
@@ -20,7 +20,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public List<IAccount> getAccounts(ICustomer customer) {
+    public List<IAccount> getAccounts(Customer customer) {
         return accountRepository.getAccounts(customer);
     }
 }
