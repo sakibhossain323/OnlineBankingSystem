@@ -15,6 +15,7 @@ public class TransactionRepository implements ITransactionRepository {
     public void createTransaction(Transaction transaction) {
         OptionalInt id = transactions.stream().mapToInt(Transaction::getId).max();
         transaction.setId(id.orElse(0)+1);
+        transactions.add(transaction);
     }
 
     @Override
