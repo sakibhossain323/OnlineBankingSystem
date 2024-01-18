@@ -80,7 +80,7 @@ public class CustomerView implements ICustomerView {
     public void addAccount() {
 
         AccountType type = selectAccountTypes();
-        double balance = Reader.readFieldDouble("initial deposit");
+        double balance = Reader.readDouble("initial deposit");
         accountService.createAccount(type, customer, balance, false);
     }
 
@@ -94,9 +94,9 @@ public class CustomerView implements ICustomerView {
 
     @Override
     public void transfer() {
-        int fromNo = Reader.readFieldInt("A/C No(from)");
-        int toNo = Reader.readFieldInt("A/C No(to)");
-        double amount = Reader.readFieldDouble("amount");
+        int fromNo = Reader.readInt("A/C No(from)");
+        int toNo = Reader.readInt("A/C No(to)");
+        double amount = Reader.readDouble("amount");
         IAccount from = accountService.getAccount(fromNo);
         IAccount to = accountService.getAccount(toNo);
         transactionService.transfer(from, to, amount);

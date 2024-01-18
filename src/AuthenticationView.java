@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class AuthenticationView implements IAuthenticationView {
 
     ICustomerService customerService;
@@ -12,20 +10,20 @@ public class AuthenticationView implements IAuthenticationView {
 
     @Override
     public void register() {
-        String name = Reader.readField("name");
-        String phone = Reader.readField("phone");
-        String email = Reader.readField("email");
+        String name = Reader.readString("name");
+        String phone = Reader.readString("phone");
+        String email = Reader.readString("email");
         Customer customer = customerService.createCustomer(name, phone, email);
-        String password = Reader.readField("password");
+        String password = Reader.readString("password");
         authenticationService.createRecord(customer, password);
         System.out.println("Registered Successfully...");
     }
 
     @Override
     public Customer login() {
-        String phone = Reader.readField("phone");
+        String phone = Reader.readString("phone");
         Customer customer = customerService.getCustomerByPhone(phone);
-        String password = Reader.readField("password");
+        String password = Reader.readString("password");
         if(authenticationService.isValid(customer, password)) {
             return customer;
         }

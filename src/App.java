@@ -1,55 +1,48 @@
-import java.util.Scanner;
-
 public class App {
     ICustomerService customerService;
     IAccountService accountService;
     ITransactionService transactionService;
-    IAuthenticationService authenticationService;
+    IAuthenticationService authService;
+    IAuthenticationView authView;
 
     public App() {
         this.customerService = new CustomerService(new CustomerRepository());
         this.accountService = new AccountService(new AccountRepository());
         this.transactionService = new TransactionService(new TransactionRepository());
-        this.authenticationService = new AuthenticationService(new AuthenticationRepository());
+        this.authService = new AuthenticationService(new AuthenticationRepository());
+        this.authView = new AuthenticationView(customerService, authService);
     }
 
-    private void ShowNavigationOption()
-    {
+    private void ShowNavigationOption() {
+        System.out.println("Main Menu\n------------------------");
         System.out.println("1 -> Login");
         System.out.println("2 -> Register");
         System.out.println("0 -> Exit");
-        System.out.println("Choose Option: ");
     }
-    public void launch()
-    {
-        Scanner scanner = new Scanner(System.in);
+    public void launch() {
         int choice;
-        while (true)
-        {
+        while (true) {
             ShowNavigationOption();
-            choice = scanner.nextInt();
-            switch (choice) {
-                case 0 -> {
-                    return;
-                }
-                case 1-> {
-                    IAuthenticationView authView = new AuthenticationView(customerService, authenticationService);
-                    try {
-                        Customer  customer = authView.login();
+            try {
+                choice = Reader.selectOption();
+                switch (choice) {
+                    case 0 -> {
+                        return;
+                    }
+                    case 1-> {
+                        Customer customer = authView.login();
                         ICustomerView customerView = new CustomerView(customer, accountService, transactionService);
                         customerView.startSession();
                     }
-                    catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-
+                    case 2-> authView.register();
+                    default-> System.out.println("Invalid Choice...\n");
                 }
-                case 2-> {
-                    IAuthenticationView authView = new AuthenticationView(customerService, authenticationService);
-                    authView.register();
-                }
-                default -> System.out.println("Invalid Choice");
             }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
         }
     }
+
 }

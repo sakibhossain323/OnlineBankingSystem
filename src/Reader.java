@@ -3,18 +3,28 @@ import java.util.Scanner;
 public class Reader {
     static Scanner scanner = new Scanner(System.in);
 
-    public static String readField(String fieldName) {
+    public static String readString(String fieldName) {
         System.out.println("Enter " + fieldName + ": ");
         return scanner.nextLine();
     }
 
-    public static int readFieldInt(String fieldName) {
+    public static int readInt(String fieldName) {
         System.out.println("Enter " + fieldName + ": ");
         return scanner.nextInt();
     }
 
-    public static double readFieldDouble(String fieldName) {
+    public static double readDouble(String fieldName) {
         System.out.println("Enter " + fieldName + ": ");
         return scanner.nextDouble();
+    }
+
+    public static int selectOption() {
+        System.out.println("Select Option: ");
+        try {
+            return Integer.parseInt(scanner.nextLine());
+        } catch (Exception e) {
+            throw new RuntimeException("Invalid Choice...\n");
+        }
+
     }
 }
