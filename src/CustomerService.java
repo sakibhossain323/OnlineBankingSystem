@@ -7,6 +7,8 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer createCustomer(String name, String phone, String email) {
+        Customer existing = customerRepository.getCustomerByPhone(phone);
+        if(existing != null) throw new RuntimeException("phone number is already registered");
         Customer customer = new Customer(name, phone, email);
         customerRepository.createCustomer(customer);
         return customer;

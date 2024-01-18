@@ -9,7 +9,7 @@ class CustomerServiceTest {
         ICustomerService service = new CustomerService(new CustomerRepository());
         service.createCustomer("Alice", "096", "a@b.c");
         service.createCustomer("Bob", "097", "b@c.d");
-        Customer customer = service.getCustomer(2);
+        Customer customer = service.getCustomerById(2);
         assertEquals("Bob", customer.getName());
     }
 }
