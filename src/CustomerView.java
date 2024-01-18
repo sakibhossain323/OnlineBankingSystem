@@ -16,11 +16,12 @@ public class CustomerView implements ICustomerView {
 
     private void ShowNavigationOption()
     {
+        System.out.println(customer.getName()+"'s Dashboard\n-----------------");
         System.out.println("1 -> Add Account");
         System.out.println("2 -> List Accounts");
-        System.out.println("3 -> Fund Transfer");
+        System.out.println("3 -> Balance Inquiry");
+        System.out.println("4 -> Fund Transfer");
         System.out.println("0 -> Exit");
-        System.out.println("Choose Option: ");
     }
 
     private AccountType selectAccountTypes()
@@ -28,56 +29,41 @@ public class CustomerView implements ICustomerView {
         for (AccountType type: AccountType.values()) {
             System.out.println(type.ordinal()+1 + " -> " + type.toString());
         }
-        System.out.println("Choose Option: ");
-        int choice = scanner.nextInt();
+        int choice = Reader.selectOption();
         for (AccountType type: AccountType.values()) {
             if(choice-1 == type.ordinal()) return type;
         }
-        throw new RuntimeException("Invalid choice!");
+        throw new RuntimeException("Invalid choice!...\n");
     }
 
     @Override
     public void startSession() {
         int choice;
-        while (true)
-        {
+        while (true) {
             ShowNavigationOption();
-            choice = scanner.nextInt();
-            switch (choice) {
-                case 0 -> {
-                    return;
+            try {
+                choice = Reader.selectOption();
+                switch (choice) {
+                    case 0 -> {
+                        return;
+                    }
+                    case 1-> createAccount();
+                    case 2-> ListAccounts();
+                    case 3-> checkBalance();
+                    case 4-> transfer();
+                    default-> System.out.println("Invalid Choice...\n");
                 }
-                case 1-> {
-                    try{
-                        addAccount();
-                    }
-                    catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-                case 2-> {
-                    try{
-                        ListAccounts();
-                    }
-                    catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-                case 3-> {
-                    try{
-                        transfer();
-                    }
-                    catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-                default -> System.out.println("Invalid Choice");
             }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
         }
+
     }
 
     @Override
-    public void addAccount() {
+    public void createAccount() {
 
         AccountType type = selectAccountTypes();
         double balance = Reader.readDouble("initial deposit");
@@ -88,8 +74,15 @@ public class CustomerView implements ICustomerView {
     public void ListAccounts() {
         List<IAccount> accounts = accountService.getAccounts(customer);
         for(int i = 0; i < accounts.size(); i++) {
-            System.out.println((i+1)+". "+accounts.get(i).getAccountNo());
+            System.out.println((i+1)+". A/C No: "+accounts.get(i).getAccountNo());
         }
+    }
+
+    @Override
+    public void checkBalance() {
+        int accountNo = Reader.readInt("A/C No(from)");
+        IAccount account = accountService.getAccount(accountNo);
+        System.out.println("Balance: "+account.getBalance());
     }
 
     @Override

@@ -10,12 +10,20 @@ public class Reader {
 
     public static int readInt(String fieldName) {
         System.out.println("Enter " + fieldName + ": ");
-        return scanner.nextInt();
+        try {
+            return Integer.parseInt(scanner.nextLine());
+        } catch (Exception e) {
+            throw new RuntimeException("Invalid Entry...\n");
+        }
     }
 
     public static double readDouble(String fieldName) {
         System.out.println("Enter " + fieldName + ": ");
-        return scanner.nextDouble();
+        try {
+            return Integer.parseInt(scanner.nextLine());
+        } catch (Exception e) {
+            throw new RuntimeException("Invalid Entry...\n");
+        }
     }
 
     public static int selectOption() {

@@ -1,6 +1,7 @@
 public interface ICustomerView {
     void startSession();
-    void addAccount();
+    void createAccount();
     void ListAccounts();
+    void checkBalance();
     void transfer();
 }
