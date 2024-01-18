@@ -1,5 +1,10 @@
 public interface ICustomerService {
-    void createCustomer(String name, String phone, String email);
-    Customer getCustomer(int id);
+    Customer createCustomer(String name, String phone, String email);
+    Customer getCustomerById(int id);
+    Customer getCustomerByPhone(String phone);
+    Customer getCustomerByEmail(String email);
+
+
+
 }
 

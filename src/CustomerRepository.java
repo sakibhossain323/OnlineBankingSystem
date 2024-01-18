@@ -10,10 +10,6 @@ public class CustomerRepository implements ICustomerRepository{
         customers = new ArrayList<>();
     }
 
-    public CustomerRepository(List<Customer> customers) {
-        this.customers = customers;
-    }
-
     @Override
     public void createCustomer(Customer customer){
         OptionalInt id = customers.stream().mapToInt(Customer::getId).max();
@@ -22,10 +18,24 @@ public class CustomerRepository implements ICustomerRepository{
     }
 
     @Override
-    public Customer getCustomer(int id)
+    public Customer getCustomerById(int id)
     {
         Optional<Customer> result = customers.stream().
                 filter((c)-> c.getId() == id).findFirst();
+        return result.orElse(null);
+    }
+
+    @Override
+    public Customer getCustomerByPhone(String phone) {
+        Optional<Customer> result = customers.stream().
+                filter((c)-> c.getPhone().equals(phone)).findFirst();
+        return result.orElse(null);
+    }
+
+    @Override
+    public Customer getCustomerByEmail(String email) {
+        Optional<Customer> result = customers.stream().
+                filter((c)-> c.getEmail().equals(email)).findFirst();
         return result.orElse(null);
     }
 }

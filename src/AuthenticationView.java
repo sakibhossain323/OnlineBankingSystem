@@ -14,12 +14,15 @@ public class AuthenticationView implements IAuthenticationView {
         String name = readField("name");
         String phone = readField("phone");
         String email = readField("email");
-        customerService.createCustomer(name, phone, email);
-        System.out.println(name+phone+email);
+        Customer customer = customerService.createCustomer(name, phone, email);
+        authenticationService.createRecord(customer, readField("Password"));
+        System.out.println("Registered Successfully...");
     }
 
     @Override
     public Customer login(ICustomerService customerService, IAuthenticationService authenticationService) {
+        String phone = readField("phone");
+
         return null;
     }
 }
