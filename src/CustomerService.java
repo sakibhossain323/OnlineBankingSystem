@@ -14,16 +14,16 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer getCustomerById(int id) {
-        return customerRepository.getCustomer(id);
+        return customerRepository.getCustomerById(id);
     }
 
     @Override
     public Customer getCustomerByPhone(String phone) {
-        return customerRepository.getCustomer(phone);
+        return customerRepository.getCustomerByPhone(phone);
     }
 
     @Override
     public Customer getCustomerByEmail(String email) {
-        return customerRepository.getCustomer(email);
+        return customerRepository.getCustomerByEmail(email);
     }
 }
