@@ -34,8 +34,15 @@ public class App {
                 }
                 case 1-> {
                     IAuthenticationView authView = new AuthenticationView();
-                    Customer  customer = authView.login(customerService, authenticationService);
-                    System.out.println(customer.getName());
+                    try {
+                        Customer  customer = authView.login(customerService, authenticationService);
+                        ICustomerView customerView = new CustomerView(customer, accountService, transactionService);
+                        customerView.startSession();
+                    }
+                    catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+
                 }
                 case 2-> {
                     IAuthenticationView authView = new AuthenticationView();
