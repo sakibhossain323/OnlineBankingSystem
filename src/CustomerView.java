@@ -16,6 +16,7 @@ public class CustomerView implements ICustomerView {
     {
         System.out.println("1 -> Add Account");
         System.out.println("2 -> List Accounts");
+        System.out.println("3 -> Fund Transfer");
         System.out.println("0 -> Exit");
         System.out.println("Choose Option: ");
     }
@@ -38,6 +39,9 @@ public class CustomerView implements ICustomerView {
                 }
                 case 2-> {
                     System.out.println("gg wp");
+                }
+                case 3-> {
+                    System.out.println("gg gg");
                 }
                 default -> System.out.println("Invalid Choice");
             }

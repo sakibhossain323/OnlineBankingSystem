@@ -2,6 +2,14 @@ import java.util.Scanner;
 
 public class AuthenticationView implements IAuthenticationView {
 
+    ICustomerService customerService;
+    IAuthenticationService authenticationService;
+
+    public AuthenticationView(ICustomerService customerService, IAuthenticationService authenticationService) {
+        this.customerService = customerService;
+        this.authenticationService = authenticationService;
+    }
+
     private String readField(String fieldName)
     {
         Scanner scanner = new Scanner(System.in);
@@ -10,7 +18,7 @@ public class AuthenticationView implements IAuthenticationView {
     }
 
     @Override
-    public void register(ICustomerService customerService, IAuthenticationService authenticationService) {
+    public void register() {
         String name = readField("name");
         String phone = readField("phone");
         String email = readField("email");
@@ -20,7 +28,7 @@ public class AuthenticationView implements IAuthenticationView {
     }
 
     @Override
-    public Customer login(ICustomerService customerService, IAuthenticationService authenticationService) {
+    public Customer login() {
         String phone = readField("phone");
         Customer customer = customerService.getCustomerByPhone(phone);
         String password = readField("password");

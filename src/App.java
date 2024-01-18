@@ -33,9 +33,9 @@ public class App {
                     return;
                 }
                 case 1-> {
-                    IAuthenticationView authView = new AuthenticationView();
+                    IAuthenticationView authView = new AuthenticationView(customerService, authenticationService);
                     try {
-                        Customer  customer = authView.login(customerService, authenticationService);
+                        Customer  customer = authView.login();
                         ICustomerView customerView = new CustomerView(customer, accountService, transactionService);
                         customerView.startSession();
                     }
@@ -45,8 +45,8 @@ public class App {
 
                 }
                 case 2-> {
-                    IAuthenticationView authView = new AuthenticationView();
-                    authView.register(customerService, authenticationService);
+                    IAuthenticationView authView = new AuthenticationView(customerService, authenticationService);
+                    authView.register();
                 }
                 default -> System.out.println("Invalid Choice");
             }
