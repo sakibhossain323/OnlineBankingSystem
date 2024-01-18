@@ -15,6 +15,7 @@ public class AuthenticationView implements IAuthenticationView {
         String phone = readField("phone");
         String email = readField("email");
         customerService.createCustomer(name, phone, email);
+        System.out.println(name+phone+email);
     }
 
     @Override

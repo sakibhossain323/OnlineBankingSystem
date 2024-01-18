@@ -13,7 +13,7 @@ public class App {
         this.authenticationService = new AuthenticationService(new AuthenticationRepository());
     }
 
-    private void printNavigationOption()
+    private void ShowNavigationOption()
     {
         System.out.println("1 -> Login");
         System.out.println("2 -> Register");
@@ -26,17 +26,18 @@ public class App {
         int choice;
         while (true)
         {
-            printNavigationOption();
+            ShowNavigationOption();
             choice = scanner.nextInt();
             switch (choice) {
                 case 0 -> {
-                return;
-            }
-            case 1-> {
-                System.out.println("logging in");
-            }
+                    return;
+                }
+                case 1-> {
+                    System.out.println("logging in");
+                }
                 case 2-> {
-                    System.out.println("registering...");
+                    IAuthenticationView authView = new AuthenticationView();
+                    authView.register(customerService, authenticationService);
                 }
                 default -> System.out.println("Invalid Choice");
             }
