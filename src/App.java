@@ -33,7 +33,9 @@ public class App {
                     return;
                 }
                 case 1-> {
-                    System.out.println("logging in");
+                    IAuthenticationView authView = new AuthenticationView();
+                    Customer  customer = authView.login(customerService, authenticationService);
+                    System.out.println(customer.getName());
                 }
                 case 2-> {
                     IAuthenticationView authView = new AuthenticationView();

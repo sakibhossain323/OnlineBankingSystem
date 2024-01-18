@@ -22,7 +22,11 @@ public class AuthenticationView implements IAuthenticationView {
     @Override
     public Customer login(ICustomerService customerService, IAuthenticationService authenticationService) {
         String phone = readField("phone");
-
-        return null;
+        Customer customer = customerService.getCustomerByPhone(phone);
+        String password = readField("password");
+        if(authenticationService.isValid(customer, password)) {
+            return customer;
+        }
+        throw new RuntimeException("Invalid credentials");
     }
 }
