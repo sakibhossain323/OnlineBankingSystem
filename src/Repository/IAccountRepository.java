@@ -1,3 +1,8 @@
+package Repository;
+
+import Model.Customer;
+import Model.IAccount;
+
 import java.util.List;
 
 public interface IAccountRepository {

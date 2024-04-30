@@ -1,3 +1,8 @@
+package Repository;
+
+import Model.IAccount;
+import Model.Transaction;
+
 import java.util.List;
 
 public interface ITransactionRepository {

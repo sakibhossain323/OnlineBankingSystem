@@ -1,3 +1,7 @@
+package Service;
+
+import Model.Customer;
+
 public interface IAuthenticationService {
     String generateHash(String password);
     void createRecord(Customer customer, String password);

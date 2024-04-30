@@ -1,4 +1,8 @@
-public class SavingAccount extends Account implements IAccount{
+package Model;
+
+import Model.IAccount;
+
+public class SavingAccount extends Account implements IAccount {
     public SavingAccount(Customer accountHolder, double balance, boolean disabled) {
         super(accountHolder, balance, disabled);
     }

@@ -1,3 +1,10 @@
+package View;
+
+import Model.Customer;
+import Service.IAuthenticationService;
+import Service.ICustomerService;
+import Utility.Reader;
+
 public class AuthenticationView implements IAuthenticationView {
 
     ICustomerService customerService;

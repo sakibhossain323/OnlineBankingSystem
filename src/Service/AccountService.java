@@ -1,3 +1,12 @@
+package Service;
+
+import Model.Customer;
+import Model.IAccount;
+import Repository.IAccountRepository;
+import Service.IAccountService;
+import Utility.AccountFactory;
+import Utility.AccountType;
+
 import java.util.List;
 
 public class AccountService implements IAccountService {

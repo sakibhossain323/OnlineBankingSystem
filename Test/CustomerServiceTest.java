@@ -1,3 +1,7 @@
+import Model.Customer;
+import Repository.CustomerRepository;
+import Service.CustomerService;
+import Service.ICustomerService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

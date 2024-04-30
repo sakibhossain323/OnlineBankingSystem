@@ -1,6 +1,10 @@
+package Repository;
+
+import Repository.IAuthenticationRepository;
+
 import java.util.HashMap;
 
-public class AuthenticationRepository implements IAuthenticationRepository{
+public class AuthenticationRepository implements IAuthenticationRepository {
     HashMap<String, String> records;
 
     public AuthenticationRepository() {

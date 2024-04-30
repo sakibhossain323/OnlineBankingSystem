@@ -1,3 +1,9 @@
+package Service;
+
+import Model.Customer;
+import Model.IAccount;
+import Utility.AccountType;
+
 import java.util.List;
 
 public interface IAccountService {

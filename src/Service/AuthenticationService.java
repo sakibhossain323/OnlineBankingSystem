@@ -1,3 +1,8 @@
+package Service;
+
+import Model.Customer;
+import Repository.IAuthenticationRepository;
+
 public class AuthenticationService implements IAuthenticationService {
     IAuthenticationRepository authenticationRepository;
 

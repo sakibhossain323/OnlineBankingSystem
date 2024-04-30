@@ -1,3 +1,5 @@
+package View;
+
 public interface ICustomerView {
     void startSession();
     void createAccount();

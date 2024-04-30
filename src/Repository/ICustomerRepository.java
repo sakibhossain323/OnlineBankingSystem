@@ -1,3 +1,7 @@
+package Repository;
+
+import Model.Customer;
+
 public interface ICustomerRepository {
     void createCustomer(Customer customer);
 

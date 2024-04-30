@@ -1,3 +1,5 @@
+package Model;
+
 public interface IAccount {
 
     int getAccountNo();

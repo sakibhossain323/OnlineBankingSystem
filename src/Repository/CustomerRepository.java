@@ -1,9 +1,14 @@
+package Repository;
+
+import Model.Customer;
+import Repository.ICustomerRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 
-public class CustomerRepository implements ICustomerRepository{
+public class CustomerRepository implements ICustomerRepository {
     List<Customer> customers;
 
     public CustomerRepository() {

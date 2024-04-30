@@ -1,3 +1,7 @@
+package Model;
+
+import Model.IAccount;
+
 import java.util.Date;
 
 public class Transaction {

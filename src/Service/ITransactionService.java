@@ -1,3 +1,8 @@
+package Service;
+
+import Model.IAccount;
+import Model.Transaction;
+
 import java.util.List;
 
 public interface ITransactionService {

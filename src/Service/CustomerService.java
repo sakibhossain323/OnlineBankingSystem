@@ -1,3 +1,9 @@
+package Service;
+
+import Model.Customer;
+import Repository.ICustomerRepository;
+import Service.ICustomerService;
+
 public class CustomerService implements ICustomerService {
     ICustomerRepository customerRepository;
 

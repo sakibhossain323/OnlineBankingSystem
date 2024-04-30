@@ -1,3 +1,12 @@
+package View;
+
+import Model.Customer;
+import Model.IAccount;
+import Service.IAccountService;
+import Service.ITransactionService;
+import Utility.AccountType;
+import Utility.Reader;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,7 +26,7 @@ public class CustomerView implements ICustomerView {
     private void ShowNavigationOption()
     {
         System.out.println(customer.getName()+"'s Dashboard\n-----------------");
-        System.out.println("1 -> Add Account");
+        System.out.println("1 -> Add Model.Account");
         System.out.println("2 -> List Accounts");
         System.out.println("3 -> Balance Inquiry");
         System.out.println("4 -> Fund Transfer");

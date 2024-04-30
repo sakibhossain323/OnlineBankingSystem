@@ -1,3 +1,8 @@
+package Model;
+
+import Model.Customer;
+import Model.IAccount;
+
 public class CurrentAccount extends Account implements IAccount {
     public CurrentAccount(Customer accountHolder, double balance, boolean disabled) {
         super(accountHolder, balance, disabled);

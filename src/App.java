@@ -1,3 +1,9 @@
+import Model.*;
+import Repository.*;
+import Service.*;
+import View.*;
+import Utility.Reader;
+
 public class App {
     ICustomerService customerService;
     IAccountService accountService;
