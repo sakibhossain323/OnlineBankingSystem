@@ -1,8 +1,7 @@
 package Repository;
 
-import Model.IAccount;
+import Model.Account;
 import Model.Transaction;
-import Repository.ITransactionRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ public class TransactionRepository implements ITransactionRepository {
     }
 
     @Override
-    public List<Transaction> getTransactions(IAccount account) {
+    public List<Transaction> getTransactions(Account account) {
         return transactions.stream()
                 .filter((t)->t.getFrom() == account || t.getTo() == account)
                 .collect(Collectors.toList());

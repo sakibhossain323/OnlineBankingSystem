@@ -1,15 +1,15 @@
 package Repository;
 
+import Model.Account;
 import Model.Customer;
-import Model.IAccount;
 
 import java.util.List;
 
 public interface IAccountRepository {
-    void createAccount(IAccount account);
+    void createAccount(Account account);
 
-    IAccount getAccount(int accountNo);
+    Account getAccount(int accountNo);
 
-    List<IAccount> getAccounts(Customer customer);
+    List<Account> getAccounts(Customer customer);
 }
 

@@ -1,7 +1,7 @@
 package Repository;
 
+import Model.Account;
 import Model.Customer;
-import Model.IAccount;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,33 +10,33 @@ import java.util.OptionalInt;
 import java.util.stream.Collectors;
 
 public class AccountRepository implements IAccountRepository {
-    List<IAccount> accounts;
+    List<Account> accounts;
 
     public AccountRepository() {
         this.accounts = new ArrayList<>();
     }
 
-    public AccountRepository(List<IAccount> accounts) {
+    public AccountRepository(List<Account> accounts) {
         this.accounts = accounts;
     }
 
     @Override
-    public void createAccount(IAccount account)
+    public void createAccount(Account account)
     {
-        OptionalInt accountNo = accounts.stream().mapToInt(IAccount::getAccountNo).max();
+        OptionalInt accountNo = accounts.stream().mapToInt(Account::getAccountNo).max();
         account.setAccountNo(accountNo.orElse(0)+1);
         this.accounts.add(account);
     }
 
     @Override
-    public IAccount getAccount(int accountNo)
+    public Account getAccount(int accountNo)
     {
-        Optional<IAccount> result = accounts.stream()
+        Optional<Account> result = accounts.stream()
             .filter((a)-> a.getAccountNo() == accountNo).findFirst();
         return  result.orElse(null);
     }
     @Override
-    public List<IAccount> getAccounts(Customer customer) {
+    public List<Account> getAccounts(Customer customer) {
         return accounts.stream()
                 .filter((a)->a.getAccountHolder() == customer)
                 .collect(Collectors.toList());

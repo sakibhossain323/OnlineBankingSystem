@@ -1,9 +1,8 @@
 package Service;
 
-import Model.IAccount;
+import Model.Account;
 import Model.Transaction;
 import Repository.ITransactionRepository;
-import Service.ITransactionService;
 
 import java.util.Date;
 import java.util.List;
@@ -16,21 +15,21 @@ public class TransactionService implements ITransactionService {
     }
 
     @Override
-    public void debit(IAccount account, double amount) throws RuntimeException {
+    public void debit(Account account, double amount) throws RuntimeException {
         double balance = account.getBalance();
         balance-= amount;
         if(balance < 0) throw new RuntimeException("Insufficient Balance");
         account.setBalance(balance);
     }
     @Override
-    public void credit(IAccount account, double amount) throws RuntimeException {
+    public void credit(Account account, double amount) throws RuntimeException {
         double balance = account.getBalance();
         balance+= amount;
         account.setBalance(balance);
     }
 
     @Override
-    public void transfer(IAccount from, IAccount to, double amount) throws RuntimeException {
+    public void transfer(Account from, Account to, double amount) throws RuntimeException {
         double balance = from.getBalance();
         try {
             debit(from, amount);
@@ -58,7 +57,7 @@ public class TransactionService implements ITransactionService {
     }
 
     @Override
-    public List<Transaction> getTransactions(IAccount account) {
+    public List<Transaction> getTransactions(Account account) {
         return transactionRepository.getTransactions(account);
     }
 }

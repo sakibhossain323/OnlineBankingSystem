@@ -2,7 +2,7 @@ import Model.*;
 import Repository.*;
 import Service.*;
 import View.*;
-import Utility.Reader;
+import View.Reader;
 
 public class App {
     ICustomerService customerService;

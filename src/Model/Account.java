@@ -2,7 +2,7 @@ package Model;
 
 import Model.Customer;
 
-public abstract class Account {
+public class Account {
     public int accountNo;
     public Customer accountHolder;
     public double balance;

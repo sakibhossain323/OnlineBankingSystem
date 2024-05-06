@@ -1,11 +1,10 @@
 package View;
 
+import Model.Account;
 import Model.Customer;
-import Model.IAccount;
 import Service.IAccountService;
 import Service.ITransactionService;
 import Utility.AccountType;
-import Utility.Reader;
 
 import java.util.List;
 import java.util.Scanner;
@@ -81,7 +80,7 @@ public class CustomerView implements ICustomerView {
 
     @Override
     public void ListAccounts() {
-        List<IAccount> accounts = accountService.getAccounts(customer);
+        List<Account> accounts = accountService.getAccounts(customer);
         for(int i = 0; i < accounts.size(); i++) {
             System.out.println((i+1)+". A/C No: "+accounts.get(i).getAccountNo());
         }
@@ -90,7 +89,7 @@ public class CustomerView implements ICustomerView {
     @Override
     public void checkBalance() {
         int accountNo = Reader.readInt("A/C No(from)");
-        IAccount account = accountService.getAccount(accountNo);
+        Account account = accountService.getAccount(accountNo);
         System.out.println("Balance: "+account.getBalance());
     }
 
@@ -99,8 +98,8 @@ public class CustomerView implements ICustomerView {
         int fromNo = Reader.readInt("A/C No(from)");
         int toNo = Reader.readInt("A/C No(to)");
         double amount = Reader.readDouble("amount");
-        IAccount from = accountService.getAccount(fromNo);
-        IAccount to = accountService.getAccount(toNo);
+        Account from = accountService.getAccount(fromNo);
+        Account to = accountService.getAccount(toNo);
         transactionService.transfer(from, to, amount);
     }
 }

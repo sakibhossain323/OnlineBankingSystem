@@ -1,24 +1,22 @@
 package Model;
 
-import Model.IAccount;
-
 import java.util.Date;
 
 public class Transaction {
     private int id;
-    private IAccount from;
-    private IAccount to;
+    private Account from;
+    private Account to;
     private double amount;
     private Date date;
 
-    public Transaction(IAccount from, IAccount to, double amount, Date date) {
+    public Transaction(Account from, Account to, double amount, Date date) {
         this.from = from;
         this.to = to;
         this.amount = amount;
         this.date = date;
     }
 
-    public Transaction(int id, IAccount from, IAccount to, double amount, Date date) {
+    public Transaction(int id, Account from, Account to, double amount, Date date) {
         this(from, to, amount, date);
         this.id = id;
     }
@@ -31,19 +29,19 @@ public class Transaction {
         this.id = id;
     }
 
-    public IAccount getFrom() {
+    public Account getFrom() {
         return from;
     }
 
-    public void setFrom(IAccount from) {
+    public void setFrom(Account from) {
         this.from = from;
     }
 
-    public IAccount getTo() {
+    public Account getTo() {
         return to;
     }
 
-    public void setTo(IAccount to) {
+    public void setTo(Account to) {
         this.to = to;
     }
 

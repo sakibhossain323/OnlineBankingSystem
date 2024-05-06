@@ -1,10 +1,8 @@
 package Service;
 
+import Model.Account;
 import Model.Customer;
-import Model.IAccount;
 import Repository.IAccountRepository;
-import Service.IAccountService;
-import Utility.AccountFactory;
 import Utility.AccountType;
 
 import java.util.List;
@@ -18,18 +16,17 @@ public class AccountService implements IAccountService {
 
     @Override
     public void createAccount(AccountType type, Customer accountHolder, double balance, boolean disabled) {
-        AccountFactory factory = new AccountFactory();
-        IAccount account = factory.getAccount(type, accountHolder, balance, disabled);
+        Account account = new Account(accountHolder, balance, disabled);
         accountRepository.createAccount(account);
     }
 
     @Override
-    public IAccount getAccount(int accountNo) {
+    public Account getAccount(int accountNo) {
         return accountRepository.getAccount(accountNo);
     }
 
     @Override
-    public List<IAccount> getAccounts(Customer customer) {
+    public List<Account> getAccounts(Customer customer) {
         return accountRepository.getAccounts(customer);
     }
 }
