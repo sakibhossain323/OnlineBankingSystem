@@ -10,9 +10,11 @@ import java.util.OptionalInt;
 import java.util.stream.Collectors;
 
 public class AccountRepository implements IAccountRepository {
+    DbContext db;
     List<Account> accounts;
 
-    public AccountRepository() {
+    public AccountRepository(DbContext db) {
+        this.db = db;
         this.accounts = new ArrayList<>();
     }
 

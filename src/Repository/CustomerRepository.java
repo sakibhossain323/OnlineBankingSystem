@@ -9,9 +9,11 @@ import java.util.Optional;
 import java.util.OptionalInt;
 
 public class CustomerRepository implements ICustomerRepository {
+    DbContext db;
     List<Customer> customers;
 
-    public CustomerRepository() {
+    public CustomerRepository(DbContext db) {
+        this.db = db;
         customers = new ArrayList<>();
     }
 

@@ -5,9 +5,11 @@ import Repository.IAuthenticationRepository;
 import java.util.HashMap;
 
 public class AuthenticationRepository implements IAuthenticationRepository {
+    DbContext db;
     HashMap<String, String> records;
 
-    public AuthenticationRepository() {
+    public AuthenticationRepository(DbContext db) {
+        this.db = db;
         records = new HashMap<>();
     }
 

@@ -5,17 +5,19 @@ import View.*;
 import View.Reader;
 
 public class App {
+    DbContext db;
     ICustomerService customerService;
     IAccountService accountService;
     ITransactionService transactionService;
     IAuthenticationService authService;
     IAuthenticationView authView;
 
-    public App() {
-        this.customerService = new CustomerService(new CustomerRepository());
-        this.accountService = new AccountService(new AccountRepository());
-        this.transactionService = new TransactionService(new TransactionRepository());
-        this.authService = new AuthenticationService(new AuthenticationRepository());
+    public App(DbContext db) {
+        this.db = db;
+        this.customerService = new CustomerService(new CustomerRepository(db));
+        this.accountService = new AccountService(new AccountRepository(db));
+        this.transactionService = new TransactionService(new TransactionRepository(db));
+        this.authService = new AuthenticationService(new AuthenticationRepository(db));
         this.authView = new AuthenticationView(customerService, authService);
     }
 

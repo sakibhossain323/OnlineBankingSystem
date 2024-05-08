@@ -10,9 +10,11 @@ import java.util.OptionalInt;
 import java.util.stream.Collectors;
 
 public class TransactionRepository implements ITransactionRepository {
+    DbContext db;
     List<Transaction> transactions;
 
-    public TransactionRepository() {
+    public TransactionRepository(DbContext db) {
+        this.db = db;
         this.transactions = new ArrayList<Transaction>();
     }
 
