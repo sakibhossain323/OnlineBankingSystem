@@ -4,19 +4,48 @@ import Model.Customer;
 
 public class Account {
     public int accountNo;
-    public Customer accountHolder;
-    public double balance;
-    public boolean disabled;
 
-    public Account(Customer accountHolder, double balance, boolean disabled) {
+    public String accountType;
+    public double balance;
+
+    public int branchId;
+    public Customer accountHolder;
+
+
+    public Account(Customer accountHolder, double balance) {
         this.accountHolder = accountHolder;
         this.balance = balance;
-        this.disabled = disabled;
     }
 
-    public Account(int accountNo, Customer accountHolder, double balance, boolean disabled) {
-        this(accountHolder, balance, disabled);
+    public Account(int accountNo, String accountType, double balance, int branchId,  Customer accountHolder) {
         this.accountNo = accountNo;
+        this.accountType = accountType;
+        this.balance = balance;
+        this.branchId = branchId;
+        this.accountHolder = accountHolder;
+    }
+
+    public Account(String accountType, double balance, int branchId,  Customer accountHolder) {
+        this.accountType = accountType;
+        this.balance = balance;
+        this.branchId = branchId;
+        this.accountHolder = accountHolder;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
+    public int getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(int branchId) {
+        this.branchId = branchId;
     }
 
     public int getAccountNo() {
@@ -41,13 +70,5 @@ public class Account {
 
     public void setBalance(double balance) {
         this.balance = balance;
-    }
-
-    public boolean isDisabled() {
-        return disabled;
-    }
-
-    public void setDisabled(boolean disabled) {
-        this.disabled = disabled;
     }
 }

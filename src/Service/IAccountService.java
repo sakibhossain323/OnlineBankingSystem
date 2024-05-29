@@ -7,7 +7,7 @@ import Utility.AccountType;
 import java.util.List;
 
 public interface IAccountService {
-    void createAccount(AccountType type, Customer accountHolder, double balance, boolean disabled);
+    void createAccount(String accountType, double balance, int branchId,  Customer accountHolder);
     Account getAccount(int accountNo);
     List<Account> getAccounts(Customer customer);
 }
