@@ -46,6 +46,7 @@ public class CustomerView implements ICustomerView {
 
     @Override
     public void startSession() {
+        System.out.println("Welcome "+customer.getName()+"\n");
         int choice;
         while (true) {
             ShowNavigationOption();

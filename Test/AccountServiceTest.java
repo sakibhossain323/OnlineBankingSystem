@@ -1,6 +1,7 @@
 import Model.Account;
 import Model.Customer;
 import Repository.AccountRepository;
+import Repository.DbContext;
 import Service.AccountService;
 import Service.IAccountService;
 import Utility.AccountType;
@@ -12,9 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AccountServiceTest {
     @Test
-    void createAccountTest()
-    {
-        IAccountService service = new AccountService(new AccountRepository());
+    void createAccountTest() throws ClassNotFoundException {
+        IAccountService service = new AccountService(new AccountRepository(new DbContext()));
         Customer customer = new Customer(1, "Bob", "096", "a@b.c");
         service.createAccount(AccountType.SavingAccount,customer, 100, false);
         service.createAccount(AccountType.SavingAccount,customer, 500, false);
@@ -23,9 +23,8 @@ class AccountServiceTest {
     }
 
     @Test
-    void getAccountsTest()
-    {
-        IAccountService service = new AccountService(new AccountRepository());
+    void getAccountsTest() throws ClassNotFoundException {
+        IAccountService service = new AccountService(new AccountRepository(new DbContext()));
         Customer customer = new Customer(1, "Bob", "096", "a@b.c");
         service.createAccount(AccountType.SavingAccount,customer, 100, false);
         service.createAccount(AccountType.SavingAccount,customer, 500, false);

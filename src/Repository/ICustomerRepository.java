@@ -9,5 +9,7 @@ public interface ICustomerRepository {
     Customer getCustomerByPhone(String phone);
     Customer getCustomerByEmail(String email);
 
+    int getNewId();
+
 }
 

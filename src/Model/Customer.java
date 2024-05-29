@@ -6,14 +6,17 @@ public class Customer {
     private String phone;
     private String email;
 
-    public Customer(String name, String phone, String email) {
+    private String address;
+
+    public Customer(String name, String address, String email, String phone) {
         this.name = name;
-        this.phone = phone;
+        this.address = address;
         this.email = email;
+        this.phone = phone;
     }
 
-    public Customer(int id, String name, String phone, String email) {
-        this(name, phone, email);
+    public Customer(int id, String name, String email, String address, String phone ) {
+        this(name, address , email, phone );
         this.id = id;
     }
 
@@ -47,6 +50,14 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
 

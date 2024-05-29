@@ -11,20 +11,37 @@ public class AuthenticationService implements IAuthenticationService {
     }
 
     @Override
-    public String generateHash(String password) {
-        return password;
+    public String generateHash(String password)
+    {
+        int shift = 5;
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < password.length(); i++)
+        {
+            char charAtPosition = password.charAt(i);
+
+            if (Character.isLetter(charAtPosition))
+            {
+                char base = Character.isLowerCase(charAtPosition) ? 'a' : 'A';
+                charAtPosition = (char) ((charAtPosition - base + shift) % 26 + base);
+            }
+            result.append(charAtPosition);
+        }
+
+        return result.toString();
     }
 
     @Override
-    public void createRecord(Customer customer, String password) {
-        String identifier = customer.getPhone();
+    public void createRecord(Customer customer, String password)
+    {
         String passwordHash = generateHash(password);
-        authenticationRepository.createRecord(identifier, passwordHash);
+
+        authenticationRepository.createRecord(customer.getId(), passwordHash);
     }
 
     @Override
     public boolean isValid(Customer customer, String password) {
-        String identifier = customer.getPhone();
+        int identifier = customer.getId();
         String passwordHash = generateHash(password);
         return authenticationRepository.isValid(identifier, passwordHash);
     }
