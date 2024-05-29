@@ -44,6 +44,24 @@ public class CustomerView implements ICustomerView {
         throw new RuntimeException("Invalid choice!...\n");
     }
 
+    private Account selectAccount()
+    {
+        System.out.println("Choose Account: ");
+
+        List<Account> accounts = accountService.getAccounts(customer);
+        for(int i = 0; i < accounts.size();i++)
+        {
+            System.out.println(i+1 + ") A/C No: " + accounts.get(i).getAccountNo());
+        }
+        int choice = Reader.selectOption() - 1;
+
+        if(0 <= choice && choice < accounts.size())
+        {
+            return accounts.get(choice);
+        }
+        throw new RuntimeException("Invalid choice!...\n");
+    }
+
     @Override
     public void startSession() {
         System.out.println("Welcome "+customer.getName()+"\n");
@@ -78,7 +96,7 @@ public class CustomerView implements ICustomerView {
         String type = String.valueOf(selectAccountTypes());
 
         double balance = Reader.readDouble("Initial Deposit Amount:");
-        int branchId = Reader.readInt("Branch ID:");
+        int branchId = Reader.readInt("Branch ID");
 
         accountService.createAccount(type, balance, branchId, customer);
     }
@@ -95,18 +113,25 @@ public class CustomerView implements ICustomerView {
     @Override
     public void checkBalance()
     {
-        int accountNo = Reader.readInt("A/C No(from)");
-        Account account = accountService.getAccount(accountNo);
+        Account account = selectAccount();
         System.out.println("Balance: "+account.getBalance());
+
+        //int accountNo = Reader.readInt("A/C No");
+        //Account account = accountService.getAccount(accountNo);
+        //System.out.println("Balance: "+account.getBalance());
     }
 
     @Override
-    public void transfer() {
+    public void transfer()
+    {
         int fromNo = Reader.readInt("A/C No(from)");
         int toNo = Reader.readInt("A/C No(to)");
         double amount = Reader.readDouble("amount");
-        Account from = accountService.getAccount(fromNo);
-        Account to = accountService.getAccount(toNo);
+
+        Account from = accountService.getAccount(customer,fromNo);
+
+        Account to = accountService.getAccount(customer,toNo);
+
         transactionService.transfer(from, to, amount);
     }
 }

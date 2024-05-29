@@ -22,9 +22,9 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public Account getAccount(int accountNo)
+    public Account getAccount(Customer customer, int accountNo)
     {
-        return accountRepository.getAccount(accountNo);
+        return accountRepository.getAccount(customer,accountNo);
     }
 
     @Override
