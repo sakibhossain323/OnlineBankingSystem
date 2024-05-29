@@ -1,6 +1,6 @@
 package Repository;
 
 public interface IAuthenticationRepository {
-    void createRecord(String identifier, String passwordHash);
-    boolean isValid(String identifier, String passwordHash);
+    void createRecord(int identifier, String passwordHash);
+    boolean isValid(int identifier, String passwordHash);
 }

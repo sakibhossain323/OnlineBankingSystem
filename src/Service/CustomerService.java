@@ -12,10 +12,12 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public Customer createCustomer(String name, String phone, String email) {
+    public Customer createCustomer(String name, String phone, String email, String address)
+    {
         Customer existing = customerRepository.getCustomerByPhone(phone);
         if(existing != null) throw new RuntimeException("phone number is already registered");
-        Customer customer = new Customer(name, phone, email);
+        Customer customer = new Customer(name, address, email, phone );
+
         customerRepository.createCustomer(customer);
         return customer;
     }
@@ -33,5 +35,10 @@ public class CustomerService implements ICustomerService {
     @Override
     public Customer getCustomerByEmail(String email) {
         return customerRepository.getCustomerByEmail(email);
+    }
+
+    public int getNewId()
+    {
+        return customerRepository.getNewId();
     }
 }
