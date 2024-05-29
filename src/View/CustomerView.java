@@ -25,7 +25,7 @@ public class CustomerView implements ICustomerView {
     private void ShowNavigationOption()
     {
         System.out.println(customer.getName()+"'s Dashboard\n-----------------");
-        System.out.println("1 -> Add Model.Account");
+        System.out.println("1 -> Add Account");
         System.out.println("2 -> List Accounts");
         System.out.println("3 -> Balance Inquiry");
         System.out.println("4 -> Fund Transfer");
@@ -72,15 +72,20 @@ public class CustomerView implements ICustomerView {
     }
 
     @Override
-    public void createAccount() {
+    public void createAccount()
+    {
 
-        AccountType type = selectAccountTypes();
-        double balance = Reader.readDouble("initial deposit");
-        accountService.createAccount(type, customer, balance, false);
+        String type = String.valueOf(selectAccountTypes());
+
+        double balance = Reader.readDouble("Initial Deposit Amount:");
+        int branchId = Reader.readInt("Branch ID:");
+
+        accountService.createAccount(type, balance, branchId, customer);
     }
 
     @Override
-    public void ListAccounts() {
+    public void ListAccounts()
+    {
         List<Account> accounts = accountService.getAccounts(customer);
         for(int i = 0; i < accounts.size(); i++) {
             System.out.println((i+1)+". A/C No: "+accounts.get(i).getAccountNo());
@@ -88,7 +93,8 @@ public class CustomerView implements ICustomerView {
     }
 
     @Override
-    public void checkBalance() {
+    public void checkBalance()
+    {
         int accountNo = Reader.readInt("A/C No(from)");
         Account account = accountService.getAccount(accountNo);
         System.out.println("Balance: "+account.getBalance());

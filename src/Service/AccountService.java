@@ -15,18 +15,21 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public void createAccount(AccountType type, Customer accountHolder, double balance, boolean disabled) {
-        Account account = new Account(accountHolder, balance, disabled);
+    public void createAccount(String accountType, double balance, int branchId,  Customer accountHolder)
+    {
+        Account account = new Account(accountType, balance, branchId, accountHolder);
         accountRepository.createAccount(account);
     }
 
     @Override
-    public Account getAccount(int accountNo) {
+    public Account getAccount(int accountNo)
+    {
         return accountRepository.getAccount(accountNo);
     }
 
     @Override
-    public List<Account> getAccounts(Customer customer) {
+    public List<Account> getAccounts(Customer customer)
+    {
         return accountRepository.getAccounts(customer);
     }
 }

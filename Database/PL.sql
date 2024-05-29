@@ -11,7 +11,7 @@ BEGIN
     SELECT MAX(account_id) into account_number FROM account;
 
     IF account_number IS NULL THEN
-        RETURN 1001;
+        RETURN 100001;
     ELSE
         RETURN account_number + 1;
     END IF;
