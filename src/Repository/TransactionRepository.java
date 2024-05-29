@@ -19,10 +19,25 @@ public class TransactionRepository implements ITransactionRepository {
     }
 
     @Override
-    public void createTransaction(Transaction transaction) {
-        OptionalInt id = transactions.stream().mapToInt(Transaction::getId).max();
-        transaction.setId(id.orElse(0)+1);
-        transactions.add(transaction);
+    public void createTransaction(Transaction transaction)
+    {
+        String sql = "INSERT INTO transaction VALUES (?,?,?,?,?)";
+
+        try (var conn = db.getConnection();
+             var ps = conn.prepareStatement(sql))
+        {
+            ps.setInt(1, 0);
+            ps.setDouble(2, transaction.getAmount());
+            ps.setDate(3, new java.sql.Date(transaction.getDate().getTime()));
+            ps.setInt(4, transaction.getFrom().getAccountNo());
+            ps.setInt(5, transaction.getTo().getAccountNo());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+//        OptionalInt id = transactions.stream().mapToInt(Transaction::getId).max();
+//        transaction.setId(id.orElse(0)+1);
+//        transactions.add(transaction);
     }
 
     @Override

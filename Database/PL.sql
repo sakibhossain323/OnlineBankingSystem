@@ -28,7 +28,7 @@ transaction_number INT;
 BEGIN
     SELECT MAX(transaction_id) into transaction_number FROM TRANSACTION;
     IF transaction_number IS NULL THEN
-        RETURN 1001;
+        RETURN 000001;
     ELSE
         RETURN transaction_number + 1;
     END IF;
@@ -65,5 +65,27 @@ BEGIN
     ELSE
         RETURN customer_number + 1;
     END IF;
+END;
+/
+
+
+--Function to add balance to account
+CREATE OR REPLACE PROCEDURE addBalanceToAccount(Id in INT, amount in INT)
+AS
+BEGIN
+    UPDATE account
+    SET account_balance = account_balance + amount
+    WHERE account_id = Id;
+END;
+/
+
+
+--Function to subtract balance from account
+CREATE OR REPLACE PROCEDURE subtractBalanceFromAccount(Id in INT, amount in INT)
+AS
+BEGIN
+    UPDATE account
+    SET account_balance = account_balance - amount
+    WHERE account_id = Id;
 END;
 /

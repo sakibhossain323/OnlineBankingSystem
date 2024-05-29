@@ -8,7 +8,7 @@ import java.util.List;
 public interface IAccountRepository {
     void createAccount(Account account);
 
-    Account getAccount(int accountNo);
+    Account getAccount(Customer customer,int accountNo);
 
     List<Account> getAccounts(Customer customer);
 }

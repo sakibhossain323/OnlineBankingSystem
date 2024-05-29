@@ -45,11 +45,27 @@ public class AccountRepository implements IAccountRepository {
     }
 
     @Override
-    public Account getAccount(int accountNo)
+    public Account getAccount(Customer customer,int accountNo)
     {
-        Optional<Account> result = accounts.stream()
-            .filter((a)-> a.getAccountNo() == accountNo).findFirst();
-        return  result.orElse(null);
+        String sql = "SELECT * FROM account WHERE account_id = ?";
+        try (var conn = db.getConnection();
+             var ps = conn.prepareStatement(sql))
+        {
+            ps.setInt(1, accountNo);
+            var rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Account(
+                    rs.getInt("account_id"),
+                    rs.getString("account_type"),
+                    rs.getDouble("account_balance"),
+                    rs.getInt("branch_id"),
+                    customer
+                );
+            }
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     @Override
     public List<Account> getAccounts(Customer customer)

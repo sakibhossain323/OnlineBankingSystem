@@ -60,7 +60,8 @@ CREATE TABLE account
     customer_id int,
     PRIMARY KEY (account_id),
     FOREIGN KEY (branch_id) REFERENCES branch(branch_id),
-    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+    CHECK (account_balance >= 0)
 );
 
 
@@ -68,12 +69,13 @@ CREATE TABLE account
 CREATE TABLE transaction
 (
     transaction_id int,
-    transaction_type varchar(50),
     transaction_amount numeric(12,2),
     transaction_date date,
-    account_id int,
+    from_account_id int,
+    to_account_id int,
     PRIMARY KEY (transaction_id),
-    FOREIGN KEY (account_id) REFERENCES account(account_id)
+    FOREIGN KEY (from_account_id) REFERENCES account(account_id),
+    FOREIGN KEY (to_account_id) REFERENCES account(account_id)
 );
 
 
@@ -124,7 +126,11 @@ INSERT INTO credential (customer_id, customer_password)
 VALUES (1001, 'ff');
 
 INSERT INTO account (account_id, account_type, account_balance, branch_id, customer_id)
-VALUES (10001, 'Savings', 1000.00, 1, 1001);
+VALUES (10001, 'Savings', 100000.00, 1, 1001);
+
+INSERT INTO account (account_id, account_type, account_balance, branch_id, customer_id)
+VALUES (10002, 'Current', 200000.00, 2, 1001);
+
 
 --Create a trigger to customer insertion
 CREATE OR REPLACE TRIGGER customer_insert
@@ -142,5 +148,18 @@ BEFORE INSERT ON account
 FOR EACH ROW
 BEGIN
     :new.account_id := generate_account_id();
+END;
+/
+
+
+
+--Transaction Insertion
+CREATE OR REPLACE TRIGGER transaction_insert
+BEFORE INSERT ON transaction
+FOR EACH ROW
+BEGIN
+    :new.transaction_id := generate_transaction_id();
+    subtractBalanceFromAccount(:new.from_account_id, :new.transaction_amount);
+    addBalanceToAccount(:new.to_account_id, :new.transaction_amount);
 END;
 /
