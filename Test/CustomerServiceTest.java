@@ -11,9 +11,56 @@ class CustomerServiceTest {
     @Test
     public void createCustomerTest() throws ClassNotFoundException {
         ICustomerService service = new CustomerService(new CustomerRepository(new DbContext()));
-        service.createCustomer("Alice", "096", "a@b.c");
-        service.createCustomer("Bob", "097", "b@c.d");
-        Customer customer = service.getCustomerById(2);
+        service.createCustomer("Alice","095","a@b.c","abc");
+        service.createCustomer("Bob", "097", "b@c.d", "def");
+        Customer customer = service.getCustomerById(service.getNewId());
         assertEquals("Bob", customer.getName());
     }
+
+    @Test
+    public void getCustomerByIdTest() throws ClassNotFoundException {
+        ICustomerService service = new CustomerService(new CustomerRepository(new DbContext()));
+        service.createCustomer("Alice", "095", "a@b.c", "abc");
+        service.createCustomer("Bob", "097", "b@c.d", "def");
+        Customer customer = service.getCustomerById(service.getNewId());
+        assertEquals(1018, customer.getId());
+
+
+
+
+
+
+    }
+
+    @Test
+    public void getCustomerByPhoneTest() throws ClassNotFoundException {
+        ICustomerService service = new CustomerService(new CustomerRepository(new DbContext()));
+        service.createCustomer("Alice", "095", "a@b.c", "abc");
+        service.createCustomer("Bob", "097", "b@c.d", "def");
+        Customer customer = service.getCustomerByPhone(service.getCustomerById(1018).getPhone());
+        assertEquals("Alice", customer.getName());
+    }
+
+
+    @Test
+
+    public void getCustomerByEmailTest() throws ClassNotFoundException {
+        ICustomerService service = new CustomerService(new CustomerRepository(new DbContext()));
+        service.createCustomer("Alice", "095", "a@b.c", "abc");
+        service.createCustomer("Bob", "097", "b@c.d", "def");
+        Customer customer = service.getCustomerByEmail(service.getCustomerById(1018).getEmail());
+        assertEquals("Alice", customer.getName());
+    }
+
+
+    @Test
+    public void getNewIdTest() throws ClassNotFoundException {
+        ICustomerService service = new CustomerService(new CustomerRepository(new DbContext()));
+        service.createCustomer("Alice", "095", "a@b.c", "abc");
+        Customer customer= service.createCustomer("Bob", "097", "b@c.d", "def");
+        assertEquals( service.getNewId(),customer.getId());
+    }
+
+
+
 }
