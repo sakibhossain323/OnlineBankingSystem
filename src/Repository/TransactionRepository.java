@@ -18,6 +18,7 @@ public class TransactionRepository implements ITransactionRepository {
         this.transactions = new ArrayList<Transaction>();
     }
 
+
     @Override
     public void createTransaction(Transaction transaction)
     {
@@ -49,9 +50,31 @@ public class TransactionRepository implements ITransactionRepository {
 
     @Override
     public List<Transaction> getTransactions(Account account) {
-        return transactions.stream()
-                .filter((t)->t.getFrom() == account || t.getTo() == account)
-                .collect(Collectors.toList());
+        String sql = "SELECT * FROM transaction WHERE from_account_id = ? OR to_account_id = ? ORDER BY transaction_date DESC";
+        try(var conn = db.getConnection();
+            var ps = conn.prepareStatement(sql))
+        {
+            ps.setInt(1, account.getAccountNo());
+            ps.setInt(2, account.getAccountNo());
+            var result = ps.executeQuery();
+            List<Transaction> transactions = new ArrayList<>();
+            while (result.next())
+            {
+                int id = result.getInt("transaction_id");
+                int from = result.getInt("from_account_id");
+                Account  ac_from = new Account(from, null, 0, 0, null);
+                int to = result.getInt("to_account_id");
+                Account  ac_to = new Account(to, null, 0, 0, null);
+                double amount = result.getDouble("transaction_amount");
+                java.util.Date date = result.getDate("transaction_date");
+                transactions.add(new Transaction(id, ac_from, ac_to, amount, date));
+            }
+            return transactions;
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

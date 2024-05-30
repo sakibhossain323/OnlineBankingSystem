@@ -2,6 +2,7 @@ package View;
 
 import Model.Account;
 import Model.Customer;
+import Model.Transaction;
 import Service.IAccountService;
 import Service.ITransactionService;
 import Utility.AccountType;
@@ -42,7 +43,9 @@ public class CustomerView implements ICustomerView {
         System.out.println(GREEN + "2 -> List Accounts" + RESET);
         System.out.println(GREEN + "3 -> Balance Inquiry" + RESET);
         System.out.println(GREEN + "4 -> Fund Transfer" + RESET);
-        System.out.println(GREEN + "5 -> Take Loan" + RESET);
+        System.out.println(GREEN + "5 -> Transaction History" + RESET);
+        System.out.println(GREEN + "6 -> Take Loan" + RESET);
+        System.out.println(GREEN + "7 -> Loan Status" + RESET);
         System.out.println(RED + "0 -> Exit" + RESET);
     }
 
@@ -92,7 +95,10 @@ public class CustomerView implements ICustomerView {
                     case 2 -> ListAccounts();
                     case 3 -> checkBalance();
                     case 4 -> transfer();
-                    case 5 -> takeLoan();
+                    case 5 -> viewTransactions();
+                    case 6 -> takeLoan();
+                    case 7 -> checkLoanStatus();
+
                     default -> System.out.println(RED + "Invalid Choice...\n" + RESET);
                 }
             } catch (Exception e) {
@@ -147,5 +153,32 @@ public class CustomerView implements ICustomerView {
         transactionService.takeLoan(account, amount, duration);
         System.out.println(GREEN + "Loan processed successfully!" + RESET);
     }
+
+
+    public void checkLoanStatus() {
+
+
+    }
+
+    public void viewTransactions() {
+        System.out.println(YELLOW + "Transactions" + RESET);
+        Account account = selectAccount();
+        List<Transaction> transactions = transactionService.getTransactions(account);
+        int i = 1;
+        for (Transaction transaction: transactions) {
+            System.out.print(YELLOW + "1) " + i++ + RESET);
+            System.out.print(YELLOW +" Date: " + transaction.getDate() + RESET);
+            if(account.getAccountNo() == transaction.getFrom().getAccountNo())
+            {
+                System.out.print(RED + " Debit: " + transaction.getAmount() + RESET);
+            }
+            else
+            {
+                System.out.print(GREEN + " Credit: " + transaction.getAmount() + RESET);
+            }
+            System.out.println(YELLOW + " TrxId: " + transaction.getId() + RESET);
+        }
+    }
+
 }
 
