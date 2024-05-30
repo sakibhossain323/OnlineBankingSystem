@@ -54,4 +54,18 @@ class AccountServiceTest {
 
 
 
+    @Test
+    public void getAccountsTest() throws ClassNotFoundException {
+        ICustomerService service = new CustomerService(new CustomerRepository(new DbContext()));
+        IAccountService accountService = new AccountService(new AccountRepository(new DbContext()));
+        Customer customer = service.createCustomer("Alice","095","a@b.c","abc");
+        customer.setId(service.getNewId());
+        accountService.createAccount("SavingAccount", 1000, 1,customer);
+        accountService.createAccount("SavingAccount", 2000, 1,customer);
+        List<Account> accounts = accountService.getAccounts(customer);
+        assertEquals(2, accounts.size());
+    }
+
+
+
 }
