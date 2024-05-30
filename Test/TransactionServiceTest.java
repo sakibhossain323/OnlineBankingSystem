@@ -125,6 +125,38 @@ class TransactionServiceTest {
     }
 
 
+    @Test
+    void transferDecreasesSenderBalanceTest() throws ClassNotFoundException {
+        Customer c1 = new Customer("1", "Alice", "0967", "a@b.c");
+        Customer c2 = new Customer("2", "Bob", "0968", "b@b.c");
+        IAccountService service = new AccountService(new AccountRepository(new DbContext()));
+        service.createAccount("SavingAccount", 1000, 1, c1);
+        service.createAccount("SavingAccount", 500, 1, c2);
+        Account ac1 = service.getAccount(c1, 10001);
+        Account ac2 = service.getAccount(c2, 10002);
+        ITransactionService trx = new TransactionService(new TransactionRepository(new DbContext()));
+        double initialBalance = ac1.getBalance();
+        trx.transfer(ac1, ac2, 100);
+        assertEquals(initialBalance - 100, ac1.getBalance());
+    }
+
+    @Test
+    void transferIncreasesReceiverBalanceTest() throws ClassNotFoundException {
+        Customer c1 = new Customer("1", "Alice", "0967", "a@b.c");
+        Customer c2 = new Customer("2", "Bob", "0968", "b@b.c");
+        IAccountService service = new AccountService(new AccountRepository(new DbContext()));
+        service.createAccount("SavingAccount", 1000, 1, c1);
+        service.createAccount("SavingAccount", 500, 1, c2);
+        Account ac1 = service.getAccount(c1, 10001);
+        Account ac2 = service.getAccount(c2, 10002);
+        ITransactionService trx = new TransactionService(new TransactionRepository(new DbContext()));
+        double initialBalance = ac2.getBalance();
+        trx.transfer(ac1, ac2, 100);
+        assertEquals(initialBalance + 100, ac2.getBalance());
+    }
+
+
+
 
 
 

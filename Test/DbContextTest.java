@@ -6,7 +6,14 @@ import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import java.sql.Connection;
+
 public class DbContextTest {
+
+
+
     @Test
     public void getConnectionTest() throws ClassNotFoundException {
 
@@ -53,6 +60,36 @@ public class DbContextTest {
 //            throw new RuntimeException(e);
 //        }
 //    }
+
+
+
+    @Test
+    public void insertCustomerTest() throws ClassNotFoundException {
+        DbContext db = new DbContext();
+        Customer c = new Customer("khalid", "123", "khalid@gmail.com", "123");
+
+        String sql = "INSERT INTO CUSTOMER (name, phone, email, address) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = db.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, c.getName());
+            ps.setString(2, c.getPhone());
+            ps.setString(3, c.getEmail());
+            ps.setString(4, c.getAddress());
+
+            int rows = ps.executeUpdate();
+            assertEquals(1, rows);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
+
 
 
 
