@@ -151,7 +151,7 @@ BEGIN
     monthly_installment := total_payable / duration;
 
     FOR i IN 1..duration LOOP
-        INSERT INTO installment VALUES(generate_installment_id(), monthly_installment, due_date, Id);
+        INSERT INTO installment VALUES(generate_installment_id(), monthly_installment, due_date, Id,'Unpaid');
         due_date := ADD_MONTHS(due_date, 1);
     END LOOP;
 END;

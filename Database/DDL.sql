@@ -99,6 +99,7 @@ CREATE TABLE installment
     installment_amount numeric(12,2),
     installment_date date,
     loan_id int,
+    status varchar(50),
     PRIMARY KEY (installment_id),
     FOREIGN KEY (loan_id) REFERENCES loan(loan_id)
 );
