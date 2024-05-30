@@ -20,18 +20,12 @@ public class AuthenticationView implements IAuthenticationView {
         String address = Reader.readString("address");
         String email = Reader.readString("email");
         String phone = Reader.readString("phone");
-
         Customer customer = customerService.createCustomer(name, phone, email, address);
 
         String password = Reader.readString("password");
-
-        int newId = customerService.getNewId();
-
-        customer.setId(newId);
-
         authenticationService.createRecord(customer, password);
 
-        System.out.println("Registered Successfully. Your ID is: " + newId + "\n");
+        System.out.println("Registered Successfully. Your ID is: " + customer.getId() + "\n");
     }
 
     @Override

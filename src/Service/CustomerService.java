@@ -19,6 +19,7 @@ public class CustomerService implements ICustomerService {
         Customer customer = new Customer(name, address, email, phone );
 
         customerRepository.createCustomer(customer);
+        customer.setId(customerRepository.getNewId());
         return customer;
     }
 
