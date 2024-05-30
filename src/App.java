@@ -4,6 +4,8 @@ import Service.*;
 import View.*;
 import View.Reader;
 
+import java.io.IOException;
+
 public class App {
     DbContext db;
     ICustomerService customerService;
@@ -21,13 +23,46 @@ public class App {
         this.authView = new AuthenticationView(customerService, authService);
     }
 
-    private void ShowNavigationOption() {
+    private void ShowNavigationOption()  {
         System.out.println("Main Menu\n------------------------");
         System.out.println("1 -> Login");
         System.out.println("2 -> Register");
         System.out.println("0 -> Exit");
-    }
+        }
+
+//    private void ShowNavigationOption() throws IOException {
+//
+//        String message = "Main Menu\n------------------------";
+//        String options[] = {"Login", "Register", "Exit"};
+//        IMenuView menuView = new MenuView(options);
+//
+//        int choice = menuView.Run(message);
+//
+//        switch(choice)
+//        {
+//            case 0:
+//                Customer customer = authView.login();
+//                ICustomerView customerView = new CustomerView(customer, accountService, transactionService);
+//                customerView.startSession();
+//                break;
+//            case 1:
+//                authView.register();
+//                break;
+//            case 2:
+//                return;
+//            default:
+//                System.out.println("Invalid Choice...\n");
+//        }
+//    }
     public void launch() {
+//        try {
+//            while (true) {
+//                ShowNavigationOption();
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
         int choice;
         while (true) {
             ShowNavigationOption();
