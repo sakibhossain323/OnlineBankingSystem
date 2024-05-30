@@ -6,4 +6,6 @@ public interface ICustomerView {
     void ListAccounts();
     void checkBalance();
     void transfer();
+
+    void takeLoan();
 }

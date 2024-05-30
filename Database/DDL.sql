@@ -82,8 +82,8 @@ CREATE TABLE transaction
 CREATE TABLE loan
 (
     loan_id int,
-    loan_type varchar(50),
     loan_amount numeric(12,2),
+    duration int,
     loan_date date,
     account_id int,
     branch_id int,
@@ -163,3 +163,34 @@ BEGIN
     addBalanceToAccount(:new.to_account_id, :new.transaction_amount);
 END;
 /
+
+
+
+--Loan Insertion
+CREATE OR REPLACE TRIGGER loan_insert
+BEFORE INSERT ON loan
+FOR EACH ROW
+BEGIN
+
+    if(checkEligibilityForLoan(:new.account_id, :new.loan_amount)=false) then
+        raise_application_error(-20001, 'Loan amount exceeds eligibility');
+    end if;
+
+    :new.loan_id := generate_loan_id();
+
+    addLoanToAccount(:new.account_id, :new.loan_amount);
+END;
+/
+
+
+--Installment Insertion
+CREATE OR REPLACE TRIGGER installment_insert
+    AFTER INSERT ON loan
+    FOR EACH ROW
+BEGIN
+    insertInstallment(:new.loan_id, :new.loan_amount, :new.duration);
+END;
+/
+
+
+commit;

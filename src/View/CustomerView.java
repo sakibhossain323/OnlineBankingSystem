@@ -29,6 +29,7 @@ public class CustomerView implements ICustomerView {
         System.out.println("2 -> List Accounts");
         System.out.println("3 -> Balance Inquiry");
         System.out.println("4 -> Fund Transfer");
+        System.out.println("5 -> Take Loan");
         System.out.println("0 -> Exit");
     }
 
@@ -78,6 +79,7 @@ public class CustomerView implements ICustomerView {
                     case 2-> ListAccounts();
                     case 3-> checkBalance();
                     case 4-> transfer();
+                    case 5-> takeLoan();
                     default-> System.out.println("Invalid Choice...\n");
                 }
             }
@@ -133,6 +135,16 @@ public class CustomerView implements ICustomerView {
         Account to = accountService.getAccount(customer,toNo);
 
         transactionService.transfer(from, to, amount);
+    }
+
+    @Override
+    public void takeLoan()
+    {
+        Account account = selectAccount();
+        double amount = Reader.readDouble("Amount");
+        int duration = Reader.readInt("Duration");
+
+        transactionService.takeLoan(account, amount, duration);
     }
 }
 
