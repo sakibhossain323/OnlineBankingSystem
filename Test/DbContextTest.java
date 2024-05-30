@@ -88,6 +88,30 @@ public class DbContextTest {
 
 
 
+    @Test
+    public void updateCustomerTest() throws ClassNotFoundException {
+        DbContext db = new DbContext();
+        Customer c = new Customer("khalid", "123", "khalid@gmail.com", "123 Street");
+
+        String sql = "UPDATE CUSTOMER SET phone = ?, email = ?, address = ? WHERE name = ?";
+
+        try (Connection conn = db.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, c.getPhone());
+            ps.setString(2, c.getEmail());
+            ps.setString(3, c.getAddress());
+            ps.setString(4, c.getName());
+
+            int rows = ps.executeUpdate();
+            assertEquals(1, rows);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 
 
