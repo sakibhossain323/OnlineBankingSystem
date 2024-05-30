@@ -14,6 +14,17 @@ public class App {
     IAuthenticationService authService;
     IAuthenticationView authView;
 
+    // ANSI escape codes for colors
+    private static final String RESET = "\u001B[0m";
+    private static final String BLACK = "\u001B[30m";
+    private static final String RED = "\u001B[31m";
+    private static final String GREEN = "\u001B[32m";
+    private static final String YELLOW = "\u001B[33m";
+    private static final String BLUE = "\u001B[34m";
+    private static final String PURPLE = "\u001B[35m";
+    private static final String CYAN = "\u001B[36m";
+    private static final String WHITE = "\u001B[37m";
+
     public App(DbContext db) {
         this.db = db;
         this.customerService = new CustomerService(new CustomerRepository(db));
@@ -23,46 +34,15 @@ public class App {
         this.authView = new AuthenticationView(customerService, authService);
     }
 
-    private void ShowNavigationOption()  {
-        System.out.println("Main Menu\n------------------------");
-        System.out.println("1 -> Login");
-        System.out.println("2 -> Register");
-        System.out.println("0 -> Exit");
-        }
+    private void ShowNavigationOption() {
+        System.out.println(CYAN + "Main Menu" + RESET);
+        System.out.println(YELLOW + "------------------------" + RESET);
+        System.out.println(GREEN + "1 -> Login" + RESET);
+        System.out.println(GREEN + "2 -> Register" + RESET);
+        System.out.println(RED + "0 -> Exit" + RESET);
+    }
 
-//    private void ShowNavigationOption() throws IOException {
-//
-//        String message = "Main Menu\n------------------------";
-//        String options[] = {"Login", "Register", "Exit"};
-//        IMenuView menuView = new MenuView(options);
-//
-//        int choice = menuView.Run(message);
-//
-//        switch(choice)
-//        {
-//            case 0:
-//                Customer customer = authView.login();
-//                ICustomerView customerView = new CustomerView(customer, accountService, transactionService);
-//                customerView.startSession();
-//                break;
-//            case 1:
-//                authView.register();
-//                break;
-//            case 2:
-//                return;
-//            default:
-//                System.out.println("Invalid Choice...\n");
-//        }
-//    }
     public void launch() {
-//        try {
-//            while (true) {
-//                ShowNavigationOption();
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
         int choice;
         while (true) {
             ShowNavigationOption();
@@ -70,22 +50,20 @@ public class App {
                 choice = Reader.selectOption();
                 switch (choice) {
                     case 0 -> {
+                        System.out.println(RED + "Exiting... Goodbye!" + RESET);
                         return;
                     }
-                    case 1-> {
+                    case 1 -> {
                         Customer customer = authView.login();
                         ICustomerView customerView = new CustomerView(customer, accountService, transactionService);
                         customerView.startSession();
                     }
-                    case 2-> authView.register();
-                    default-> System.out.println("Invalid Choice...\n");
+                    case 2 -> authView.register();
+                    default -> System.out.println(RED + "Invalid Choice...\n" + RESET);
                 }
+            } catch (Exception e) {
+                System.out.println(RED + e.getMessage() + RESET);
             }
-            catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-
         }
     }
-
 }
