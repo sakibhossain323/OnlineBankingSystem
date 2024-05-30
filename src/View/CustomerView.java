@@ -123,19 +123,17 @@ public class CustomerView implements ICustomerView {
         //System.out.println("Balance: "+account.getBalance());
     }
 
-    @Override
-    public void transfer()
-    {
-        int fromNo = Reader.readInt("A/C No(from)");
-        int toNo = Reader.readInt("A/C No(to)");
-        double amount = Reader.readDouble("amount");
+   @Override
+   public void transfer()
+   {
+       Account from = selectAccount();
 
-        Account from = accountService.getAccount(customer,fromNo);
+       int toNo = Reader.readInt("A/C No(to)");
+       double amount = Reader.readDouble("amount");
+       Account to = accountService.getAccount(customer,toNo);
 
-        Account to = accountService.getAccount(customer,toNo);
-
-        transactionService.transfer(from, to, amount);
-    }
+       transactionService.transfer(from, to, amount);
+   }
 
     @Override
     public void takeLoan()
