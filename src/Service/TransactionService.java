@@ -60,4 +60,19 @@ public class TransactionService implements ITransactionService {
     public List<Transaction> getTransactions(Account account) {
         return transactionRepository.getTransactions(account);
     }
+
+    @Override
+    public void takeLoan(Account account, double amount, int duration)
+    {
+        try
+        {
+            credit(account, amount);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException();
+        }
+
+        transactionRepository.takeLoan(account, amount, duration);
+    }
 }

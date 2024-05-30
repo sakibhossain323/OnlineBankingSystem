@@ -10,6 +10,8 @@ public interface ITransactionService {
     void credit(Account account, double amount) throws RuntimeException;
     void transfer(Account from, Account to, double amount) throws RuntimeException;
 
+    void takeLoan(Account account, double amount, int duration) throws RuntimeException;
+
     Transaction getTransaction(int id);
     List<Transaction> getTransactions(Account account);
 }

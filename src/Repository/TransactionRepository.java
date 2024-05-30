@@ -53,4 +53,24 @@ public class TransactionRepository implements ITransactionRepository {
                 .filter((t)->t.getFrom() == account || t.getTo() == account)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void takeLoan(Account account, double amount, int duration)
+    {
+        String sql = "INSERT INTO loan VALUES (?,?,?,?,?,?)";
+
+        try (var conn = db.getConnection();
+             var ps = conn.prepareStatement(sql))
+        {
+            ps.setInt(1, 0);
+            ps.setDouble(2, amount);
+            ps.setInt(3, duration);
+            ps.setDate(4, new java.sql.Date(new java.util.Date().getTime()));
+            ps.setInt(5, account.getAccountNo());
+            ps.setInt(6, account.getBranchId());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

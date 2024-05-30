@@ -10,5 +10,7 @@ public interface ITransactionRepository {
     Transaction getTransaction(int id);
 
     List<Transaction> getTransactions(Account account);
+
+    void takeLoan(Account account, double amount, int duration);
 }
 
