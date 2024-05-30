@@ -3,9 +3,11 @@ import Repository.CustomerRepository;
 import Repository.DbContext;
 import Service.CustomerService;
 import Service.ICustomerService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 class CustomerServiceTest {
     @Test
@@ -60,6 +62,33 @@ class CustomerServiceTest {
         Customer customer= service.createCustomer("Bob", "097", "b@c.d", "def");
         assertEquals( service.getNewId(),customer.getId());
     }
+
+
+    @Test
+    void createCustomerThrowsExceptionWhenPhoneExistsTest() throws ClassNotFoundException {
+        ICustomerService service = new CustomerService(new CustomerRepository(new DbContext()));
+        service.createCustomer("Alice", "095", "a@b.c", "abc");
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            service.createCustomer("Bob", "095", "b@c.d", "def");
+        });
+    }
+
+    @Test
+    void getCustomerByPhoneReturnsCorrectCustomerTest() throws ClassNotFoundException {
+        ICustomerService service = new CustomerService(new CustomerRepository(new DbContext()));
+        service.createCustomer("Alice", "095", "a@b.c", "abc");
+        Customer customer = service.getCustomerByPhone("095");
+        assertEquals("Alice", customer.getName());
+    }
+
+    @Test
+    void getCustomerByEmailReturnsCorrectCustomerTest() throws ClassNotFoundException {
+        ICustomerService service = new CustomerService(new CustomerRepository(new DbContext()));
+        service.createCustomer("Alice", "095", "a@b.c", "abc");
+        Customer customer = service.getCustomerByEmail("a@b.c");
+        assertEquals("Alice", customer.getName());
+    }
+
 
 
 
