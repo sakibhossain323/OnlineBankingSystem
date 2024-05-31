@@ -12,5 +12,9 @@ public interface ITransactionRepository {
     List<Transaction> getTransactions(Account account);
 
     void takeLoan(Account account, double amount, int duration);
+
+    List<String> getLoans(Account account);
+
+    void payLoan(int installment_id);
 }
 

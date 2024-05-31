@@ -40,7 +40,8 @@ CREATE TABLE customer
     customer_address varchar(100),
     customer_email varchar(50),
     customer_phone varchar(20) NOT NULL,
-    PRIMARY KEY (customer_id)
+    PRIMARY KEY (customer_id),
+    CHECK(customer_email like '%@%.%')
 );
 
 CREATE TABLE credential
@@ -121,10 +122,10 @@ INSERT INTO branch (branch_id, branch_name, branch_address, branch_email, branch
 VALUES (2, 'Downtown Branch', '456 Elm St, Othertown, USA', 'downtown@bank.com', '987-654-3210', 102);
 
 INSERT INTO CUSTOMER (customer_id, customer_name, customer_address, customer_email, customer_phone)
-VALUES (1001,'khalid','afcsc','afca',123);
+VALUES (1001,'khalid','Dhaka','khalid@gmail.com',123);
 
 INSERT INTO credential (customer_id, customer_password)
-VALUES (1001, 'ff');
+VALUES (1001, 'fxik');
 
 INSERT INTO account (account_id, account_type, account_balance, branch_id, customer_id)
 VALUES (10001, 'Savings', 100000.00, 1, 1001);

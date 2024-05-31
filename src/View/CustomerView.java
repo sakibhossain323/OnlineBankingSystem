@@ -46,6 +46,7 @@ public class CustomerView implements ICustomerView {
         System.out.println(GREEN + "5 -> Transaction History" + RESET);
         System.out.println(GREEN + "6 -> Take Loan" + RESET);
         System.out.println(GREEN + "7 -> Loan Status" + RESET);
+        System.out.println((GREEN + "8 -> Pay Loan" + RESET));
         System.out.println(RED + "0 -> Exit" + RESET);
     }
 
@@ -98,6 +99,7 @@ public class CustomerView implements ICustomerView {
                     case 5 -> viewTransactions();
                     case 6 -> takeLoan();
                     case 7 -> checkLoanStatus();
+                    case 8 -> payLoan();
 
                     default -> System.out.println(RED + "Invalid Choice...\n" + RESET);
                 }
@@ -111,8 +113,8 @@ public class CustomerView implements ICustomerView {
     public void createAccount() {
         System.out.println(YELLOW + "Create Account" + RESET);
         String type = String.valueOf(selectAccountTypes());
-        double balance = Reader.readDouble("Initial Deposit Amount: ");
-        int branchId = Reader.readInt("Branch ID: ");
+        double balance = Reader.readDouble("Initial Deposit Amount");
+        int branchId = Reader.readInt("Branch ID");
         accountService.createAccount(type, balance, branchId, customer);
         System.out.println(GREEN + "Account created successfully!" + RESET);
     }
@@ -137,8 +139,8 @@ public class CustomerView implements ICustomerView {
     public void transfer() {
         System.out.println(YELLOW + "Fund Transfer" + RESET);
         Account from = selectAccount();
-        int toNo = Reader.readInt("A/C No (to): ");
-        double amount = Reader.readDouble("Amount: ");
+        int toNo = Reader.readInt("A/C No (to)");
+        double amount = Reader.readDouble("Amount");
         Account to = accountService.getAccount(customer, toNo);
         transactionService.transfer(from, to, amount);
         System.out.println(GREEN + "Transfer successful!" + RESET);
@@ -148,14 +150,22 @@ public class CustomerView implements ICustomerView {
     public void takeLoan() {
         System.out.println(YELLOW + "Take a Loan" + RESET);
         Account account = selectAccount();
-        double amount = Reader.readDouble("Amount: ");
-        int duration = Reader.readInt("Duration (months): ");
+        double amount = Reader.readDouble("Amount");
+        int duration = Reader.readInt("Duration (months)");
         transactionService.takeLoan(account, amount, duration);
         System.out.println(GREEN + "Loan processed successfully!" + RESET);
     }
 
 
-    public void checkLoanStatus() {
+    public void checkLoanStatus()
+    {
+        System.out.println(YELLOW + "Loan Status" + RESET);
+        Account account = selectAccount();
+        List<String> transactions = transactionService.getLoans(account);
+
+        for (String transaction: transactions) {
+            System.out.println(YELLOW + transaction + RESET);
+        }
 
 
     }
@@ -178,6 +188,20 @@ public class CustomerView implements ICustomerView {
             }
             System.out.println(YELLOW + " TrxId: " + transaction.getId() + RESET);
         }
+    }
+
+
+    public void payLoan()
+    {
+        System.out.println(YELLOW + "Pay Loan" + RESET);
+        Account account = selectAccount();
+        List<String> loans = transactionService.getLoans(account);
+        for (String loan: loans) {
+            System.out.println(YELLOW + loan + RESET);
+        }
+        int installment_id = Reader.readInt("Installment ID");
+        transactionService.payLoan(installment_id);
+        System.out.println(GREEN + "Loan paid successfully!" + RESET);
     }
 
 }
