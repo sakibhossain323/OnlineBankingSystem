@@ -75,4 +75,16 @@ public class TransactionService implements ITransactionService {
 
         transactionRepository.takeLoan(account, amount, duration);
     }
+
+    @Override
+    public List<String> getLoans(Account account)
+    {
+        return transactionRepository.getLoans(account);
+    }
+
+    @Override
+    public void payLoan(int installment_id)
+    {
+        transactionRepository.payLoan(installment_id);
+    }
 }

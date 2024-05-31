@@ -28,13 +28,13 @@ public class AuthenticationView implements IAuthenticationView {
     @Override
     public void register() {
         System.out.println(YELLOW + "Registration" + RESET);
-        String name = Reader.readString("Name: ");
-        String address = Reader.readString("Address: ");
-        String email = Reader.readString("Email: ");
-        String phone = Reader.readString("Phone: ");
+        String name = Reader.readString("Name");
+        String address = Reader.readString("Address");
+        String email = Reader.readString("Email");
+        String phone = Reader.readString("Phone");
         Customer customer = customerService.createCustomer(name, phone, email, address);
 
-        String password = Reader.readString("Password: ");
+        String password = Reader.readString("Password");
         authenticationService.createRecord(customer, password);
 
         System.out.println(GREEN + "Registered Successfully. Your ID is: " + customer.getId() + "\n" + RESET);
@@ -43,8 +43,8 @@ public class AuthenticationView implements IAuthenticationView {
     @Override
     public Customer login() {
         System.out.println(YELLOW + "Login" + RESET);
-        int ID = Reader.readInt("Customer ID: ");
-        String password = Reader.readString("Password: ");
+        int ID = Reader.readInt("Customer ID");
+        String password = Reader.readString("Password");
 
         //String phone = Reader.readString("phone");
         //Customer customer = customerService.getCustomerByPhone(phone);

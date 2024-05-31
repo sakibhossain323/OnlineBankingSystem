@@ -14,4 +14,8 @@ public interface ITransactionService {
 
     Transaction getTransaction(int id);
     List<Transaction> getTransactions(Account account);
+
+    List<String> getLoans(Account account);
+
+    void payLoan(int installment_id);
 }

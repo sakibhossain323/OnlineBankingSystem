@@ -96,4 +96,58 @@ public class TransactionRepository implements ITransactionRepository {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public List<String> getLoans(Account account)
+    {
+        String sql = "SELECT * FROM loan WHERE account_id = ?";
+        String sql2= "Select * from installment where loan_id = ? and status='Unpaid' order by installment_date";
+        try(var conn = db.getConnection();
+            var ps = conn.prepareStatement(sql))
+        {
+            ps.setInt(1, account.getAccountNo());
+            var result = ps.executeQuery();
+            List<String> loans = new ArrayList<>();
+            while (result.next())
+            {
+                try(var ps2 = conn.prepareStatement(sql2))
+                {
+                    ps2.setInt(1, result.getInt("loan_id"));
+                    var result2 = ps2.executeQuery();
+                    int loan_id = result.getInt("loan_id");
+                    double amount = result.getDouble("loan_amount");
+                    int duration = result.getInt("duration");
+                    java.util.Date date = result.getDate("loan_date");
+                    loans.add( "Loan_ID:" + loan_id + " Amount: " + amount + " Duration: " + duration + " Date: " + date);
+                    while(result2.next())
+                    {
+                        loans.add("Installment_Id: "+ result2.getInt("installment_id") + " Amount: " + result2.getDouble("installment_amount") + " Date: " + result2.getDate("installment_date"));
+                    }
+                }
+//                double amount = result.getDouble("loan_amount");
+//                int duration = result.getInt("loan_duration");
+//                java.util.Date date = result.getDate("loan_date");
+//                loans.add("Amount: " + amount + " Duration: " + duration + " Date: " + date);
+            }
+            return loans;
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void payLoan(int installment_id)
+    {
+        String sql = "UPDATE installment SET status = 'Paid' WHERE installment_id = ?";
+        try (var conn = db.getConnection();
+             var ps = conn.prepareStatement(sql))
+        {
+            ps.setInt(1, installment_id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
